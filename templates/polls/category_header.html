@@ -4,12 +4,12 @@
     <div class="catset_info">
 
     {% if pollcategoryset.poll %}
-        <h2><a href="{% url poll_view pollcategoryset.poll.id %}">{{ pollcategoryset.poll.name }}</a></h2>
+        <h2><a href="{% url "poll_view" pollcategoryset.poll.id %}">{{ pollcategoryset.poll.name }}</a></h2>
         <p>{{ pollcategoryset.poll.description|safe|markdown|linebreaksbr }}</p>
 
     {% else %}
         {% if "pollcategoryset_update" in poll_perms or perms.polls.pollcategoryset_update %}
-            <div class="poll_edit"><a class="btn" href="{% url catset_edit pollcategoryset.id %}">Edit</a></div>
+            <div class="poll_edit"><a class="btn" href="{% url "catset_edit" pollcategoryset.id %}">Edit</a></div>
         {% endif %}
         <h2>{{ pollcategoryset.name }}</h2>
         <p>{{ pollcategoryset.description|safe|markdown|linebreaksbr }}</p>

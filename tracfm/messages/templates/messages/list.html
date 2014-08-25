@@ -38,7 +38,7 @@
 {% if perms.rapidsms_httprouter.message_send %}
 <div id="message_tester">
   <label>Message Tester</label>
-  <form method="POST" action="{% url messages_send %}">
+  <form method="POST" action="{% url "messages_send" %}">
   <table>
     </tr>
     <td>

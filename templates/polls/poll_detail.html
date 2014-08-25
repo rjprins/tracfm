@@ -41,7 +41,7 @@
   background-color: #EFEFEF;
   border: 1px solid #DDD;
   padding: 8px 10px;
-  margin-bottom: 5px;   
+  margin-bottom: 5px;
 }
 </style>
 {% endblock %}
@@ -139,7 +139,7 @@ function buildSeries(secondary_id, color) {
 }
 
 // given a JSON version of our page, builds up our cat_data variable and returns
-// it.  It is up to the caller to assign 
+// it.  It is up to the caller to assign
 function buildCategoryData(json){
   var new_cat_data = [];
   var categories = json.categories;
@@ -200,12 +200,12 @@ function buildCategoryData(json){
       if (categories[i].location) {
           category.latlng = new google.maps.LatLng(categories[i].location.lat, categories[i].location.lng);
       }
-    
+
       category.href = "/p/responses/{{poll.id}}/" + categories[i].id + "/";
       new_cat_data[new_cat_data.length] = category
     }
   }
- 
+
   // sort it by number of items
   new_cat_data.sort(function(a,b) { return b.count - a.count });
 
@@ -374,7 +374,7 @@ time_chart = new Highcharts.Chart({
       },
       tooltip: {
          formatter: function() {
-           var label = Highcharts.dateFormat('%b %e %Y, %H:00', this.x) + 
+           var label = Highcharts.dateFormat('%b %e %Y, %H:00', this.x) +
                      "<br>" + this.y + " response";
            if (this.y > 1){
              label += "s";
@@ -394,7 +394,7 @@ function setTimeData(data){
 }
 
 function setCategoryData(json){
-  new_cat_data = buildCategoryData(json);                           
+  new_cat_data = buildCategoryData(json);
 
   // see if everything is the same, we'll shortcut out if so
   if (cat_data.length == new_cat_data.length){
@@ -588,16 +588,16 @@ $(function(){
     <div class="well">
       This poll hasn't started yet.
       {% if "poll_update" in poll_perms or perms.polls.poll_update %}
-      <a href="{% url poll_start poll.id %}" class="btn btn-primary">Start</a>
+      <a href="{% url "poll_start" poll.id %}" class="btn btn-primary">Start</a>
       {% endif %}
     </div>
     {% endif %}
-  
+
     {% if poll.started and not poll.ended %}
     <div class="well">
       This poll is open and has been running since {{ poll.started }}
         {% if "poll_update" in poll_perms or perms.polls.poll_update %}
-        <a style="margin-left:20px" href="{% url poll_stop poll.id %}" class="btn btn-primary">End Poll</a>
+        <a style="margin-left:20px" href="{% url "poll_stop" poll.id %}" class="btn btn-primary">End Poll</a>
         {% endif %}
     </div>
     {% endif %}
@@ -661,7 +661,7 @@ $(function(){
   <div class="span4">
     <div style="margin-bottom: 30px;text-align:right;">
         {% if "poll_update" in poll_perms or perms.polls.poll_update %}
-      <a class="btn" href="{% url poll_edit poll.id %}">Edit</a>
+      <a class="btn" href="{% url "poll_edit" poll.id %}">Edit</a>
         {% endif %}
         {% if perms.polls.poll_iframe %}
       <a class="btn" id="embed_button" href="#">Embed</a>
@@ -673,7 +673,7 @@ $(function(){
         <td class="giant_nums">
           <span class="giant">
             {% if "poll_update" in poll_perms or perms.polls.poll_update %}
-            <a id="total_count" href="{% url responses_for_poll poll.id  %}">
+            <a id="total_count" href="{% url "responses_for_poll" poll.id  %}">
             {{ poll.count }}
             </a>
                {% else %}
@@ -687,7 +687,7 @@ $(function(){
             {% if not poll.demographic %}
           <span class="giant">
               {% if "poll_update" in poll_perms or perms.polls.poll_update %}
-            <a id="unknown_count" href="{% url responses_for_poll poll.id  '_' %}">
+            <a id="unknown_count" href="{% url "responses_for_poll" poll.id  '_' %}">
               {{ poll.unknown_count }}
             </a>
               {% else %}
@@ -706,7 +706,7 @@ $(function(){
 {% if poll.started or poll.demographic %}
 <div class="row">
   <div class="span8">
-    <div id="bar">  
+    <div id="bar">
     </div>
   </div>
   <div class="span4">
@@ -736,7 +736,7 @@ $(function(){
         <div id="empty_message"></div>
         <div id="empty_category_names">
     {% endif %}
-          <div id="no_responses">No responses for: 
+          <div id="no_responses">No responses for:
             {% for category in poll.category_set.get_empty_categories %}
                 {% if category.count == 0 and category.name %}{{ category.name }}{% if not forloop.last %}, {% endif %}{% endif %}
             {% endfor %}
@@ -755,15 +755,15 @@ $(function(){
     </div>
   </div>
 {% endif %}
-  
+
   <div class="row" style="margin-top: 15px;">
     <div class="span12">
     <div class="page-header">
       <div class="pull-right" style="margin-top:0px">
 {% if "poll_recent" in poll_perms or perms.polls.poll_recent %}
-        <a class="btn btn-primary btn-small" href="{% url poll_catset_view poll.category_set.id %}">Categories</a>
+        <a class="btn btn-primary btn-small" href="{% url "poll_catset_view" poll.category_set.id %}">Categories</a>
               {% if poll.secondary_category_set %}
-        <a class="btn btn-small" href="{% url poll_catset_view poll.secondary_category_set.id %}">Secondary Categories</a>
+        <a class="btn btn-small" href="{% url "poll_catset_view" poll.secondary_category_set.id %}">Secondary Categories</a>
               {% endif %}
       </div>
       {% if not poll.demographic %}
@@ -778,7 +778,7 @@ $(function(){
     {% if not poll.demographic %}
     {% if "poll_recent" in poll_perms or perms.polls.poll_recent %}
   <table class="table table-condensed table-striped" id="recent_messages">
-    
+
     <thead>
       <tr>
         <th class="header_sent">Sent</th>
@@ -789,7 +789,7 @@ $(function(){
       {% endif %}
       </tr>
     </thead>
-    
+
     <tr class="recent_message" id="message" style="display:none">
       <td class="recent_sent" nowrap="true"></td>
       <td class="recent_text" width="100%"></td>

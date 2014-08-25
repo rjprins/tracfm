@@ -61,7 +61,7 @@
   <div class="span4">
     {% if perms.campaigns.campaign_update %}
     <div class="thumbbox">
-        <a href="{% url campaigns.campaign_update campaign.pk %}" class="btn btn-block">Edit Campaign</a>
+        <a href="{% url "campaigns.campaign_update" campaign.pk %}" class="btn btn-block">Edit Campaign</a>
     </div>
     {% endif %}
 

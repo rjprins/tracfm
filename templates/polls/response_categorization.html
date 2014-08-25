@@ -109,23 +109,23 @@ function showCreate() {
 {% block pre-content %}
 {% if poll %}
 <div class="poll_info">
-  <h2><a href="{% url poll_view poll.id %}">{{  poll.name }}</a></h2>
+  <h2><a href="{% url "poll_view" poll.id %}">{{  poll.name }}</a></h2>
   <p>{{ poll.description|safe }}</p>
 </div>
 
 <div style="margin-top:15px">
 Categorize responses for <select class="category_select">
 {% for cat in categories %}
-    <option value="{% url response_categorization poll.id cat.id %}" {% if cat == category %}selected{% endif %}>{{ cat }}</option>
+    <option value="{% url "response_categorization" poll.id cat.id %}" {% if cat == category %}selected{% endif %}>{{ cat }}</option>
 {%  endfor %}
-    <option value="{% url response_categorization poll.id "_" %}" {% if category == '_' %}selected{% endif %}>Unknown</option>
+    <option value="{% url "response_categorization" poll.id "_" %}" {% if category == '_' %}selected{% endif %}>Unknown</option>
 </select>
 
     <!--
         I think having an edit link here is confusing
         {% if category.id %}
             {% if category != "_" %}
-                <a class="button small" href="{% url category_edit category.category_set.id category.id %}">Edit</a>
+                <a class="button small" href="{% url "category_edit" category.category_set.id category.id %}">Edit</a>
             {% endif %}
         {% endif %}
     -->

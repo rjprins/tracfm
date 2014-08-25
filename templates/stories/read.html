@@ -42,7 +42,7 @@
   <div class="span4">
     {% if perms.django_quickblocks.quickblock_update %}
     <div class="thumbbox">
-        <a href="{% url django_quickblocks.quickblock_update story.id %}" class="btn btn-block">Edit</a>
+        <a href="{% url "django_quickblocks.quickblock_update" story.id %}" class="btn btn-block">Edit</a>
     </div>
     {% endif %}
     {% include "menu.html" %}

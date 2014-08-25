@@ -13,7 +13,7 @@ class Migration(DataMigration):
         from django.contrib.auth.models import User
         from trac_users.models import UserBackend
 
-        trac2 = Backend.objects.get(name='tracfm2')
+        trac2, created = Backend.objects.get_or_create(name='tracfm2')
         for user in User.objects.all():
             UserBackend.objects.create(user=user, backend=trac2)
 

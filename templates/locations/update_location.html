@@ -3,6 +3,6 @@
 {% load smartmin %}
 
 {% block table_header_buttons %}
-    <a href="{% url delete_location object.kind.id object.id%}" class="button small destructive">Remove</a>
+    <a href="{% url "delete_location" object.kind.id object.id%}" class="button small destructive">Remove</a>
 {% endblock %}
 

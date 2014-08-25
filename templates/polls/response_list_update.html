@@ -6,7 +6,7 @@
 
 {% if poll %}
 <div class="poll_info">
-  <h2><a href="{% url poll_view poll.id %}">{{  poll.name }}</a></h2>
+  <h2><a href="{% url "poll_view" poll.id %}">{{  poll.name }}</a></h2>
   <p>{{ poll.description }}</p>
 </div>
 {% endif %}
@@ -14,15 +14,15 @@
 <div id="category_header">
   {% if category.id %}
   <div class="buttons right">
-    <a class="btn" href="{% url category_edit category.category_set.id category.id %}">Edit</a>
+    <a class="btn" href="{% url "category_edit" category.category_set.id category.id %}">Edit</a>
   </div>
   {% endif %}
 
 {% for cat in categories %}
    <a class="category {% if cat == category %}selected{% endif %}"
-      href="{% url responses_for_poll_edit poll.id cat.id %}">{{ cat }}</a>
+      href="{% url "responses_for_poll_edit" poll.id cat.id %}">{{ cat }}</a>
 {%  endfor %}
 
-<a class="category {% if category == '_' %}selected{% endif %}" href="{% url responses_for_poll_edit poll.id '_'%}">Unknown</a>
+<a class="category {% if category == '_' %}selected{% endif %}" href="{% url "responses_for_poll_edit" poll.id '_'%}">Unknown</a>
 </div>
 {% endblock %}

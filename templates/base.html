@@ -20,7 +20,7 @@
   </div>
 
   <div class="navbtn span2">
-    <a href="{% url polls %}">
+    <a href="{% url "polls" %}">
       <div class="logo"><h4>POLLS</h4></div>
       <div>
         <div class="redstrip pull-left">&nbsp;</div>
@@ -30,7 +30,7 @@
   </div>
   
   <div class="navbtn span2">
-    <a href="{% url stories.story_list 'campaign' %}">
+    <a href="{% url "stories.story_list" 'campaign' %}">
       <div class="logo"><h4>CAMPAIGNS</h4></div>
       <div>
         <div class="redstrip pull-left">&nbsp;</div>
@@ -40,7 +40,7 @@
   </div>
   
   <div class="navbtn span2">
-    <a href="{% url stories.story_list 'blog' %}">
+    <a href="{% url "stories.story_list" 'blog' %}">
       <div class="logo"><h4>BLOG</h4></div>
       <div>
         <div class="redstrip pull-left">&nbsp;</div>
@@ -50,7 +50,7 @@
   </div>
   
   <div class="navbtn last span2">
-    <a href="{% url stories.story_list 'about' %}">
+    <a href="{% url "stories.story_list" 'about' %}">
       <div class="logo"><h4>ABOUT</h4></div>
       <div>
         <div class="redstrip pull-left">&nbsp;</div>
@@ -64,5 +64,5 @@
 
 {% block footer %}
 <a href="http://www.nyaruka.com/"><div id="nyaruka_footer">&nbsp;</div></a>
-<a href="https://www.trac.pro{% url users.user_login %}"><div id="trac_footer"></div></a>
+<a href="https://www.trac.pro{% url "users.user_login" %}"><div id="trac_footer"></div></a>
 {% endblock %}

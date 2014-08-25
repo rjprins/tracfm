@@ -211,6 +211,9 @@ INSTALLED_APPS = (
     # and our polls
     'polls',
 
+    # campaigns,
+    'campaigns',
+
     # easy thumbnails
     'sorl.thumbnail',
 
@@ -263,11 +266,11 @@ PERMISSIONS = {
 
 # assigns the permissions that each group should have
 GROUP_PERMISSIONS = {
-    "Radio Hosts": ('polls.poll_create', 'polls.poll_update', 'polls.poll_read', 'polls.poll_list', 'polls.poll_delete', 
+    "Radio Hosts": ('polls.poll_create', 'polls.poll_update', 'polls.poll_read', 'polls.poll_list', 'polls.poll_delete',
                     'polls.poll_recent', 'polls.poll_iframe', 'polls.poll_public',
                     'polls.pollcategoryset_read', 'polls.pollcategoryset_list', 'polls.pollcategoryset_create'),
     "Editors": ('polls.poll.*', 'polls.pollcategoryset.*', 'polls.pollcategory.*'),
-    "Administrators": ('polls.poll.*', 'auth.user.*', 
+    "Administrators": ('polls.poll.*', 'auth.user.*',
                        'rapidsms_httprouter.message.*',
                        'django_quickblocks.quickblock.*', 'django_quickblocks.quickblockimage.*',
                        'simple_locations.areatype.*',
@@ -345,7 +348,7 @@ CACHES = {
 }
 
 #-----------------------------------------------------------------------------------
-# Crontab Settings 
+# Crontab Settings
 #-----------------------------------------------------------------------------------
 
 from datetime import timedelta
@@ -375,4 +378,3 @@ USER_PASSWORD_EXPIRATION = 60
 
 # and passwords must not be the same as one within one year
 USER_PASSWORD_REPEAT_WINDOW = 365
-
