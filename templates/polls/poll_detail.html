@@ -61,6 +61,7 @@
 {% endif %}
 
 <script language="javascript" type="text/javascript" src="{{ STATIC_URL }}js/highcharts.js"></script>
+<script language="javascript" type="text/javascript" src="{{ STATIC_URL }}js/jquery.awesomeCloud-0.2.js"></script>
 <script>
 var cat_data, car_chart;
 var time_data, time_chart;
@@ -233,6 +234,21 @@ $(".clip_link").live("click", function(){
     $(this).hide();
 });
 
+var setup_wordcloud = function() {
+    var settings = {
+        "size" : {
+            "grid" : 16
+        },
+        "options" : {
+            "color" : "random-dark",
+            "printMultiplier" : 3
+        },
+        "font" : "Futura, Helvetica, sans-serif",
+        "shape" : "square"
+    }
+    $("#wordcloud").awesomeCloud(settings);
+}
+
 $(document).ready(function(){
 
     {% if poll.audio_file %}
@@ -327,12 +343,15 @@ $(document).ready(function(){
            legend: { enabled: false }
          {% endif %}
     });
-    
+
 
     if ($("#map_canvas").length > 0) {
         createOverlayMap(cat_data, {{ poll.unknown_count }});
         $("#map_canvas").show();
     }
+
+    setup_wordcloud();
+
 });
 
 
@@ -801,7 +820,16 @@ $(function(){
   </table>
     {% endif %}
     {% endif %}
-    {% endif %}
+  {% endif %}
+
+  {% if poll.demographic %}
+    <div id="wordcloud" style="border:1px solid #f00;height:150px;width:150px;">
+      {% for word in poll.wordcloud %}
+        <span data-weight="{{ word.doc_count }}">{{ word.key }}</span>
+      {% endfor %}
+    </div>
+  {% endif %}
+
 </div>
 
 {% endblock %}
@@ -822,4 +850,3 @@ h2 {
 }
 </style>
 {% endblock %}
-

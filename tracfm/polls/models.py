@@ -10,6 +10,8 @@ from django.db.models import Count
 from django.core.urlresolvers import reverse
 from django.dispatch import receiver
 
+from elasticsearch import Elasticsearch
+
 from locations.views import location_deleted
 from guardian.shortcuts import assign
 from guardian.core import ObjectPermissionChecker
@@ -965,6 +967,34 @@ class DemographicQuestion(SmartModel):
     """
     question = models.CharField(max_length=255, help_text="The text of the question, shown to the call center representative")
     priority = models.IntegerField(default=0, blank=True, null=True, help_text="The priority for this question, higher priority questions are show first")
+
+    _wordcloud = None
+
+    @property
+    def wordcloud(self):
+        if self._wordcloud == None:
+            search_result = Elasticsearch().search(
+                index="tracfm", doc_type="demographic_answer",
+                search_type="count",
+                body={
+                    "query": {  # Only select answers to this poll:
+                        "match": {
+                            "demographic_question": self.id,
+                        }
+                    },
+                    "aggs": {  # Count the top 20 words in the 'response' field:
+                        "wordcloud": {
+                            "terms": {
+                                "field": "response",
+                                "size": 20
+                            }
+                        }
+                    }
+                })
+            # 'buckets' is a list of dicts: [{'key': 'someword', 'doc_count': 2}, ...]
+            self._wordcloud = search_result['aggregations']['wordcloud']['buckets']
+
+        return self._wordcloud
 
 
 class DemographicQuestionResponse(models.Model):
